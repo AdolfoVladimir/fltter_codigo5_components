@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Components App",
       home: Practice1Page(),
+
     );
   }
 }
