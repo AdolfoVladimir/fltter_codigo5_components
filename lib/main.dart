@@ -2,6 +2,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_codigo5_componets/pages/home_page.dart';
 import 'package:flutter_codigo5_componets/pages/practice1_page.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Components App",
-      home: Practice1Page(),
+      home: HomePage(),
 
     );
   }
