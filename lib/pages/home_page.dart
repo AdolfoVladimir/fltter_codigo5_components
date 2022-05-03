@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_codigo5_componets/pages/alert_page.dart';
 import 'package:flutter_codigo5_componets/pages/avatar_page.dart';
 import 'package:flutter_codigo5_componets/pages/cards_page.dart';
+import 'package:flutter_codigo5_componets/pages/drPeterson_page.dart';
+import 'package:flutter_codigo5_componets/pages/input_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  //const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,52 +23,64 @@ class HomePage extends StatelessWidget {
                 height: 200.0,
                 width: 200.0,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18.0),
-                    image: DecorationImage(
-                      // image: NetworkImage("https://ih1.redbubble.net/image.622748019.0162/pp,504x498-pad,600x600,f8f8f8.u1.jpg",),
-                      image: NetworkImage(
-                        "https://malditopaparazzo.com.ar/wp-content/uploads/2021/05/David-Chicle.jpg",
-                      ),
+                  borderRadius: BorderRadius.circular(18.0),
+                  image: const DecorationImage(
+                    // image: NetworkImage("https://ih1.redbubble.net/image.622748019.0162/pp,504x498-pad,600x600,f8f8f8.u1.jpg",),
+                    image: NetworkImage(
+                      "https://malditopaparazzo.com.ar/wp-content/uploads/2021/05/David-Chicle.jpg",
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.12),
-                        offset: Offset(4, 4),
-                        blurRadius: 12.0,
-                      ),
-                    ]),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.12),
+                      offset: Offset(4, 4),
+                      blurRadius: 12,
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               Text(
                 "Flutter Components",
-                style: GoogleFonts.montserrat(
+                style: GoogleFonts.poppins(
                   fontSize: 22.0,
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              SizedBox(
-                width: 160,
+              const SizedBox(
+                width: 160.0,
                 child: Divider(
-                  thickness: 0.5,
+                  thickness: 0.45,
                 ),
               ),
+
               ItemComponentWidget(
                 title: "Avatar",
-                subTitle: "El mejor",
                 toPage: AvatarPage(),
               ),
+
               ItemComponentWidget(
-                title: "Jose",
-                subTitle: "El malo",
+                title: "Alert",
                 toPage: AlertPage(),
               ),
+
               ItemComponentWidget(
-                title: "card",
-                subTitle: "El malo",
+                title: "Cards",
                 toPage: CardPage(),
               ),
+              ItemComponentWidget(
+                title: "dr Paterson",
+                toPage: DrPetersonPage(),
+              ),
+
+              ItemComponentWidget(
+                title: "Inputs",
+                toPage: InputPage(),
+              ),
+
+
             ],
           ),
         ),
@@ -76,13 +89,13 @@ class HomePage extends StatelessWidget {
   }
 }
 
+
+
 class ItemComponentWidget extends StatelessWidget {
   String title;
-  String subTitle;
   Widget toPage;
 
   ItemComponentWidget({
-    required this.subTitle,
     required this.title,
     required this.toPage,
   });
@@ -90,26 +103,39 @@ class ItemComponentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 7.0),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withOpacity(0.08),
             offset: Offset(4, 4),
-            blurRadius: 16,
+            blurRadius: 12.0,
           ),
         ],
       ),
       child: ListTile(
         onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => toPage));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> toPage));
         },
-        leading: Icon(Icons.check_circle_outline),
-        title: Text(title),
-        subtitle: Text(subTitle),
-        trailing: Icon(Icons.chevron_right),
+        leading: Icon(
+          Icons.check_circle_outline,
+          color: Color(0xff4A5467),
+        ),
+        title: Text(
+          title,
+          style: GoogleFonts.poppins(),
+        ),
+        subtitle: Text(
+          "Ir al detalle de $title",
+          style: GoogleFonts.poppins(
+            fontSize: 13.0,
+          ),
+        ),
+        trailing: Icon(
+          Icons.chevron_right,
+        ),
       ),
     );
   }
