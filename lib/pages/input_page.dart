@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class InputPage extends StatelessWidget {
-  const InputPage({Key? key}) : super(key: key);
+class InputPage extends StatefulWidget {
+  @override
+  State<InputPage> createState() => _InputPageState();
+}
 
+class _InputPageState extends State<InputPage> {
+  bool isInvisible = true;
+  String name = "";
+  TextEditingController _dateTimeController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  String valueAux = "Superman";
+  List<String> superheroes = [
+    "Superman",
+    "Wonder Woman",
+    "Batman",
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "InputPage",
         ),
         centerTitle: true,
@@ -80,10 +93,10 @@ class InputPage extends StatelessWidget {
               ),
               TextField(
                 decoration: InputDecoration(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.search,
                   ),
-                  suffixIcon: Icon(
+                  suffixIcon: const Icon(
                     Icons.mail,
                   ),
                   prefixIcon: Icon(
@@ -142,14 +155,14 @@ class InputPage extends StatelessWidget {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Colors.white,
                         width: 0,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Colors.white,
                         width: 0,
                       ),
@@ -157,10 +170,129 @@ class InputPage extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              TextField(
+                obscureText: isInvisible,
+                decoration: InputDecoration(
+                  hintText: "Ingrese su contraseña",
+                  suffixIcon: IconButton(
+                    icon: isInvisible
+                        ? Icon(Icons.remove_red_eye)
+                        : Icon(
+                            Icons.remove_red_eye_outlined,
+                          ),
+                    onPressed: () {
+                      isInvisible = !isInvisible;
+                      setState(() {});
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              TextField(
+                controller: _nameController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  label: Text(
+                    "Ingresa tu nombre:",
+                  ),
+                ),
+                /*onChanged: (String value) {
+                  name = value;
+                },
+                onTap: () {
+                  print("ON TAP!!");
+                },*/
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  getNameData();
+                  setState(() {});
+                },
+                child: Text("Mostrar valor"),
+              ),
+              TextField(
+                controller: _nameController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  label: Text(
+                    "Ingresa tu nombre:",
+                  ),
+                ),
+                /*onChanged: (String value) {
+                  name = value;
+                },
+                onTap: () {
+                  print("ON TAP!!");
+                },*/
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              TextField(
+                controller: _dateTimeController,
+                toolbarOptions: ToolbarOptions(
+                  copy: false,
+                  cut: false,
+                  paste: false,
+                  selectAll: false,
+                ),
+                readOnly: true,
+                decoration: InputDecoration(
+                  hintText: "Fecha de nacimiento",
+                  suffixIcon: Icon(Icons.date_range),
+                ),
+                onTap: () {
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  selectDate();
+                },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              DropdownButton(
+                value: valueAux,
+                items: superheroes
+                    .map(
+                      (e) => DropdownMenuItem(
+                        child: Text(e),
+                        value: e,
+                      ),
+                    )
+                    .toList(),
+                onChanged: (String? value) {
+                  valueAux = value!;
+                  setState(() {
+                    });
+                },
+              ),
+              const SizedBox(
+                height: 120,
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void getNameData() {
+    print(_nameController.text);
+  }
+
+  selectDate() async {
+    DateTime? dateSelected = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2030),
+    );
+    if (dateSelected != null) {
+      _dateTimeController.text = dateSelected.toString().substring(0, 10);
+    }
   }
 }
